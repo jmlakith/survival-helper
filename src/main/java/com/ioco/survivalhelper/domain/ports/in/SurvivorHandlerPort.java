@@ -1,6 +1,6 @@
 package com.ioco.survivalhelper.domain.ports.in;
 
-import com.ioco.survivalhelper.domain.dto.request.Survivor;
+import com.ioco.survivalhelper.domain.dto.Survivor;
 
 import java.util.List;
 

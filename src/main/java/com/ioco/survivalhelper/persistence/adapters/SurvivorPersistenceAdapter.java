@@ -1,8 +1,6 @@
 package com.ioco.survivalhelper.persistence.adapters;
 
-import com.ioco.survivalhelper.domain.dto.SurvivorRecords;
-import com.ioco.survivalhelper.domain.dto.SurvivorResourceRecords;
-import com.ioco.survivalhelper.domain.dto.request.Survivor;
+import com.ioco.survivalhelper.domain.dto.Survivor;
 import com.ioco.survivalhelper.domain.ports.out.SurvivorPersistencePort;
 import com.ioco.survivalhelper.persistence.entities.ResourcesEntity;
 import com.ioco.survivalhelper.persistence.entities.SurvivorEntity;
@@ -26,14 +24,14 @@ public class SurvivorPersistenceAdapter implements SurvivorPersistencePort {
     private SurvivorRepository survivorRepository;
 
     @Override
-    public void saveSurvivors(List<SurvivorRecords> records) {
+    public void saveSurvivors(List<Survivor> records) {
 
         log.info("Records requested to save");
         survivorRepository.saveAll(getTransformedSurvivors(records));
         log.info("Records saved successfully");
     }
 
-    private List<SurvivorEntity> getTransformedSurvivors(List<SurvivorRecords> survivors) {
+    private List<SurvivorEntity> getTransformedSurvivors(List<Survivor> survivors) {
 
         return survivors.stream().map(survivor -> SurvivorEntity.builder()
                 .id(survivor.getId())

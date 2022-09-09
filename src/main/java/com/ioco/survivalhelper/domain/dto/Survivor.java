@@ -15,13 +15,12 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Data
-public class SurvivorRecords {
+public class Survivor {
     private String id;
     private String name;
     private int age;
     private double lat;
     private double lon;
     private boolean isInfected = false;
-    private List<SurvivorResourceRecords> inventory;
+    private List<SurvivorResources> inventory;
 }
-

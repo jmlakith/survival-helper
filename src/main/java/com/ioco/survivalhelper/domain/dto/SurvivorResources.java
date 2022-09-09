@@ -13,8 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class SurvivorResourceRecords {
+public class SurvivorResources {
     private String item;
     private String comment;
 }
-

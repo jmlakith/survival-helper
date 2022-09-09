@@ -4,8 +4,8 @@ import com.ioco.survivalhelper.application.dto.AddSurvivorsRequestBody;
 import com.ioco.survivalhelper.application.dto.ApiResponse;
 import com.ioco.survivalhelper.application.dto.CheckInfectedRequestBody;
 import com.ioco.survivalhelper.application.dto.UpdateLocationRequestBody;
-import com.ioco.survivalhelper.domain.dto.request.Survivor;
-import com.ioco.survivalhelper.domain.dto.request.SurvivorResources;
+import com.ioco.survivalhelper.domain.dto.Survivor;
+import com.ioco.survivalhelper.domain.dto.SurvivorResources;
 import com.ioco.survivalhelper.domain.ports.in.SurvivorHandlerPort;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,29 +38,16 @@ public class SurvivorController {
         List<Survivor> newSurvivors = getTransformedSurvivors(request);
         survivorHandler.addSurvivors(newSurvivors);
 
-        return new ResponseEntity<>(ApiResponse.builder().responseCode(HttpStatus.OK.name()).message(SUCCESS_MESSAGE).data(request).build(), HttpStatus.OK);
-    }
-
-    private List<Survivor> getTransformedSurvivors(AddSurvivorsRequestBody request) {
-
-        return request.getSurvivors().stream().map(survivor -> Survivor.builder()
-                .id(survivor.getId())
-                .name(survivor.getName())
-                .age(survivor.getAge())
-                .isInfected(survivor.isInfected())
-                .lat(survivor.getLat())
-                .lon(survivor.getLon())
-                .inventory(survivor.getInventory().stream().map(resource -> SurvivorResources.builder()
-                        .item(resource.getItem())
-                        .comment(resource.getComment())
-                        .build()).collect(Collectors.toList()))
-                .build()).collect(Collectors.toList());
-
+        return new ResponseEntity<>(ApiResponse.builder()
+                .responseCode(HttpStatus.OK.name())
+                .message(SUCCESS_MESSAGE)
+                .data(request).build(), HttpStatus.OK);
     }
 
     @GetMapping()
     public ResponseEntity<ApiResponse> getSurvivors(@RequestParam(required = false) boolean infected) {
 
+     //   List<Survivor> survivors = survivorHandler.getSurvivors(infected);
         return new ResponseEntity<>(ApiResponse.builder().responseCode(HttpStatus.OK.name()).message(SUCCESS_MESSAGE).data(null).build(), HttpStatus.OK);
     }
 
@@ -80,5 +67,22 @@ public class SurvivorController {
     public ResponseEntity<ApiResponse> getSurvivorReport() {
 
         return new ResponseEntity<>(ApiResponse.builder().responseCode(HttpStatus.OK.name()).message(SUCCESS_MESSAGE).data(null).build(), HttpStatus.OK);
+    }
+
+    private List<Survivor> getTransformedSurvivors(AddSurvivorsRequestBody request) {
+
+        return request.getSurvivors().stream().map(survivor -> Survivor.builder()
+                .id(survivor.getId())
+                .name(survivor.getName())
+                .age(survivor.getAge())
+                .isInfected(survivor.isInfected())
+                .lat(survivor.getLat())
+                .lon(survivor.getLon())
+                .inventory(survivor.getInventory().stream().map(resource -> SurvivorResources.builder()
+                        .item(resource.getItem())
+                        .comment(resource.getComment())
+                        .build()).collect(Collectors.toList()))
+                .build()).collect(Collectors.toList());
+
     }
 }
