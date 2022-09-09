@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Lakith Dharmarathna
@@ -19,7 +20,7 @@ import java.util.List;
 @Data
 public class SurvivorsResponseBody {
 
-    private String id;
+    private UUID id;
     private String name;
     private int age;
     private double lat;

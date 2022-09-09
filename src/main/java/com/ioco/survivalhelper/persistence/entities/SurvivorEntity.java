@@ -8,6 +8,7 @@ import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Lakith Dharmarathna

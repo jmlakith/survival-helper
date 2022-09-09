@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Lakith Dharmarathna
@@ -27,8 +28,18 @@ public class SurvivorHandler implements SurvivorHandlerPort {
     }
 
     @Override
-    public List<Survivor> getSurvivors(boolean infected) {
+    public List<Survivor> getSurvivors(Boolean infected) {
         return survivorPersistencePort.getSurvivors(infected);
+    }
+
+    @Override
+    public void updateLocation(UUID survivorId, double lat, double lon) {
+        survivorPersistencePort.updateLocation(survivorId, lat, lon);
+    }
+
+    @Override
+    public void updateIsInfected(UUID survivorId, boolean isInfected) {
+        survivorPersistencePort.updateIsInfected(survivorId, isInfected);
     }
 
 }

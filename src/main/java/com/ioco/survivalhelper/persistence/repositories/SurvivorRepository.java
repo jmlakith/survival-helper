@@ -10,6 +10,6 @@ import java.util.UUID;
  * @author Lakith Dharmarathna
  * Date : 09/09/2022
  */
-public interface SurvivorRepository extends JpaRepository<SurvivorEntity, UUID> {
+public interface SurvivorRepository extends JpaRepository<SurvivorEntity, String> {
     List<SurvivorEntity> findByIsInfected(boolean infected);
 }

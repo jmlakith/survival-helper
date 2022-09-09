@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Lakith Dharmarathna
@@ -16,7 +17,7 @@ import java.util.List;
 @Builder
 @Data
 public class Survivor {
-    private String id;
+    private UUID id;
     private String name;
     private int age;
     private double lat;

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Lakith Dharmarathna
@@ -18,7 +19,7 @@ import java.util.List;
 public class NewSurvivorsRequest {
 
     @NonNull
-    private String id;
+    private UUID id;
     @NonNull
     private String name;
     @NonNull

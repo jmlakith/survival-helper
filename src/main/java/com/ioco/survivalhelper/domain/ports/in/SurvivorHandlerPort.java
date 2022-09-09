@@ -3,6 +3,7 @@ package com.ioco.survivalhelper.domain.ports.in;
 import com.ioco.survivalhelper.domain.dto.Survivor;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Lakith Dharmarathna
@@ -11,5 +12,9 @@ import java.util.List;
 public interface SurvivorHandlerPort {
     void addSurvivors(List<Survivor> survivors);
 
-    List<Survivor> getSurvivors(boolean infected);
+    List<Survivor> getSurvivors(Boolean infected);
+
+    void updateLocation(UUID survivorId, double lat, double lon);
+
+    void updateIsInfected(UUID survivorId, boolean isInfected);
 }
