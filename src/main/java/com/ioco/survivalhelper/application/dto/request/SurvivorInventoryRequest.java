@@ -1,7 +1,6 @@
-package com.ioco.survivalhelper.application.dto;
+package com.ioco.survivalhelper.application.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SurvivorInventory {
+public class SurvivorInventoryRequest {
     private String item;
     private String comment;
 }

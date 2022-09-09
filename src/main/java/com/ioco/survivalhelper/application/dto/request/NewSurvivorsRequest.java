@@ -1,4 +1,4 @@
-package com.ioco.survivalhelper.application.dto;
+package com.ioco.survivalhelper.application.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +28,6 @@ public class NewSurvivorsRequest {
     @NonNull
     private double lon;
     private boolean isInfected = false;
-    private List<SurvivorInventory> inventory;
+    private List<SurvivorInventoryRequest> inventory;
 
 }

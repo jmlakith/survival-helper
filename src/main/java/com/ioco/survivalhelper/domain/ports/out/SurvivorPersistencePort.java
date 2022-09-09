@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface SurvivorPersistencePort {
     void saveSurvivors(List<Survivor> records);
+
+    List<Survivor> getSurvivors(boolean infected);
 }

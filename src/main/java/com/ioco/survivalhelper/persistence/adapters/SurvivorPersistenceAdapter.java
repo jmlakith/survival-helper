@@ -1,9 +1,11 @@
 package com.ioco.survivalhelper.persistence.adapters;
 
 import com.ioco.survivalhelper.domain.dto.Survivor;
+import com.ioco.survivalhelper.domain.dto.SurvivorResources;
 import com.ioco.survivalhelper.domain.ports.out.SurvivorPersistencePort;
 import com.ioco.survivalhelper.persistence.entities.ResourcesEntity;
 import com.ioco.survivalhelper.persistence.entities.SurvivorEntity;
+import com.ioco.survivalhelper.persistence.mapper.SurvivorMapper;
 import com.ioco.survivalhelper.persistence.repositories.SurvivorRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,23 +29,15 @@ public class SurvivorPersistenceAdapter implements SurvivorPersistencePort {
     public void saveSurvivors(List<Survivor> records) {
 
         log.info("Records requested to save");
-        survivorRepository.saveAll(getTransformedSurvivors(records));
+        survivorRepository.saveAll(SurvivorMapper.dtoToEntityTransformation(records));
         log.info("Records saved successfully");
     }
 
-    private List<SurvivorEntity> getTransformedSurvivors(List<Survivor> survivors) {
+    @Override
+    public List<Survivor> getSurvivors(boolean infected) {
 
-        return survivors.stream().map(survivor -> SurvivorEntity.builder()
-                .id(survivor.getId())
-                .name(survivor.getName())
-                .age(survivor.getAge())
-                .isInfected(survivor.isInfected())
-                .lat(survivor.getLat())
-                .lon(survivor.getLon())
-                .resources(survivor.getInventory().stream().map(resource -> ResourcesEntity.builder()
-                        .item(resource.getItem())
-                        .comment(resource.getComment())
-                        .build()).collect(Collectors.toList()))
-                .build()).collect(Collectors.toList());
+        return SurvivorMapper.entityToDtoTransformation(survivorRepository.findByIsInfected(infected));
     }
+
+
 }

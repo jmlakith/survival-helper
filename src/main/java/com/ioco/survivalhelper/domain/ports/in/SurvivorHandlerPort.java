@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface SurvivorHandlerPort {
     void addSurvivors(List<Survivor> survivors);
+
+    List<Survivor> getSurvivors(boolean infected);
 }

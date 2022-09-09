@@ -26,4 +26,9 @@ public class SurvivorHandler implements SurvivorHandlerPort {
         survivorPersistencePort.saveSurvivors(survivors);
     }
 
+    @Override
+    public List<Survivor> getSurvivors(boolean infected) {
+        return survivorPersistencePort.getSurvivors(infected);
+    }
+
 }

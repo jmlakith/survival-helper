@@ -1,9 +1,11 @@
 package com.ioco.survivalhelper.application.controllers;
 
-import com.ioco.survivalhelper.application.dto.AddSurvivorsRequestBody;
+import com.ioco.survivalhelper.application.dto.request.AddSurvivorsRequestBody;
 import com.ioco.survivalhelper.application.dto.ApiResponse;
-import com.ioco.survivalhelper.application.dto.CheckInfectedRequestBody;
-import com.ioco.survivalhelper.application.dto.UpdateLocationRequestBody;
+import com.ioco.survivalhelper.application.dto.request.CheckInfectedRequestBody;
+import com.ioco.survivalhelper.application.dto.request.UpdateLocationRequestBody;
+import com.ioco.survivalhelper.application.dto.response.SurvivorInventoryResponse;
+import com.ioco.survivalhelper.application.dto.response.SurvivorsResponseBody;
 import com.ioco.survivalhelper.domain.dto.Survivor;
 import com.ioco.survivalhelper.domain.dto.SurvivorResources;
 import com.ioco.survivalhelper.domain.ports.in.SurvivorHandlerPort;
@@ -27,7 +29,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/survivors")
 public class SurvivorController {
 
-    private static final String SUCCESS_MESSAGE = "Transaction Successful";
+    private static final String SUCCESS_MESSAGE = "Request Successful";
 
     private SurvivorHandlerPort survivorHandler;
 
@@ -35,20 +37,22 @@ public class SurvivorController {
     public ResponseEntity<ApiResponse> addSurvivors(@RequestBody AddSurvivorsRequestBody request) {
 
         log.info("Request body received for 'addSurvivors' : {}", request);
-        List<Survivor> newSurvivors = getTransformedSurvivors(request);
+        List<Survivor> newSurvivors = requestBodyToDtoTransform(request);
         survivorHandler.addSurvivors(newSurvivors);
 
         return new ResponseEntity<>(ApiResponse.builder()
                 .responseCode(HttpStatus.OK.name())
                 .message(SUCCESS_MESSAGE)
-                .data(request).build(), HttpStatus.OK);
+                .data(null).build(), HttpStatus.OK);
     }
 
     @GetMapping()
     public ResponseEntity<ApiResponse> getSurvivors(@RequestParam(required = false) boolean infected) {
 
-     //   List<Survivor> survivors = survivorHandler.getSurvivors(infected);
-        return new ResponseEntity<>(ApiResponse.builder().responseCode(HttpStatus.OK.name()).message(SUCCESS_MESSAGE).data(null).build(), HttpStatus.OK);
+        return new ResponseEntity<>(ApiResponse.builder()
+                .responseCode(HttpStatus.OK.name())
+                .message(SUCCESS_MESSAGE)
+                .data(dtoToResponseBodyTransform(survivorHandler.getSurvivors(infected))).build(), HttpStatus.OK);
     }
 
     @PatchMapping("/{survivorId}/location")
@@ -69,7 +73,7 @@ public class SurvivorController {
         return new ResponseEntity<>(ApiResponse.builder().responseCode(HttpStatus.OK.name()).message(SUCCESS_MESSAGE).data(null).build(), HttpStatus.OK);
     }
 
-    private List<Survivor> getTransformedSurvivors(AddSurvivorsRequestBody request) {
+    private List<Survivor> requestBodyToDtoTransform(AddSurvivorsRequestBody request) {
 
         return request.getSurvivors().stream().map(survivor -> Survivor.builder()
                 .id(survivor.getId())
@@ -84,5 +88,21 @@ public class SurvivorController {
                         .build()).collect(Collectors.toList()))
                 .build()).collect(Collectors.toList());
 
+    }
+
+    private List<SurvivorsResponseBody> dtoToResponseBodyTransform(List<Survivor> survivors) {
+
+        return survivors.stream().map(survivor -> SurvivorsResponseBody.builder()
+                .id(survivor.getId())
+                .name(survivor.getName())
+                .age(survivor.getAge())
+                .isInfected(survivor.isInfected())
+                .lat(survivor.getLat())
+                .lon(survivor.getLon())
+                .inventory(survivor.getInventory().stream().map(resource -> SurvivorInventoryResponse.builder()
+                        .item(resource.getItem())
+                        .comment(resource.getComment())
+                        .build()).collect(Collectors.toList()))
+                .build()).collect(Collectors.toList());
     }
 }

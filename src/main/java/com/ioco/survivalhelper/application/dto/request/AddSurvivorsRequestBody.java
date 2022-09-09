@@ -1,4 +1,4 @@
-package com.ioco.survivalhelper.application.dto;
+package com.ioco.survivalhelper.application.dto.request;
 
 import lombok.*;
 import org.springframework.lang.NonNull;
