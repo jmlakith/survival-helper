@@ -1,16 +1,19 @@
 package com.ioco.survivalhelper.application.controllers;
 
-import com.ioco.survivalhelper.application.dto.AddSurvivorsRequest;
-import com.ioco.survivalhelper.application.dto.ApiResponse;
-import com.ioco.survivalhelper.application.dto.CheckInfectedRequest;
-import com.ioco.survivalhelper.application.dto.UpdateLocationRequest;
+import com.ioco.survivalhelper.application.dto.*;
+import com.ioco.survivalhelper.domain.dto.request.Survivor;
+import com.ioco.survivalhelper.domain.dto.request.SurvivorResources;
+import com.ioco.survivalhelper.domain.ports.in.SurvivorHandlerPort;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @author Lakith Dharmarathna
@@ -24,10 +27,33 @@ public class SurvivorController {
 
     private static final String SUCCESS_MESSAGE = "Transaction Successful";
 
+    private SurvivorHandlerPort survivorHandler;
+
     @PostMapping()
-    public ResponseEntity<ApiResponse> addSurvivors(@RequestBody AddSurvivorsRequest request) {
+    public ResponseEntity<ApiResponse> addSurvivors(@RequestBody AddSurvivorsRequestBody request) {
+
+        log.info("Request body received for 'addSurvivors' : {}", request);
+        List<Survivor> newSurvivors = getTransformedSurvivors(request);
+        survivorHandler.addSurvivors(newSurvivors);
 
         return new ResponseEntity<>(ApiResponse.builder().responseCode(HttpStatus.OK.name()).message(SUCCESS_MESSAGE).data(request).build(), HttpStatus.OK);
+    }
+
+    private List<Survivor> getTransformedSurvivors(AddSurvivorsRequestBody request) {
+
+        return request.getSurvivors().stream().map(survivor -> Survivor.builder()
+                .id(survivor.getId())
+                .name(survivor.getName())
+                .age(survivor.getAge())
+                .isInfected(survivor.isInfected())
+                .lat(survivor.getLat())
+                .lon(survivor.getLon())
+                .inventory(survivor.getInventory().stream().map(resource -> SurvivorResources.builder()
+                        .item(resource.getItem())
+                        .comment(resource.getComment())
+                        .build()).collect(Collectors.toList()))
+                .build()).collect(Collectors.toList());
+
     }
 
     @GetMapping()
@@ -37,13 +63,13 @@ public class SurvivorController {
     }
 
     @PatchMapping("/{survivorId}/location")
-    public ResponseEntity<ApiResponse> updateLocation(@PathVariable UUID survivorId, @RequestBody UpdateLocationRequest request) {
+    public ResponseEntity<ApiResponse> updateLocation(@PathVariable UUID survivorId, @RequestBody UpdateLocationRequestBody request) {
 
         return new ResponseEntity<>(ApiResponse.builder().responseCode(HttpStatus.OK.name()).message(SUCCESS_MESSAGE).data(null).build(), HttpStatus.OK);
     }
 
     @PatchMapping("/{survivorId}/health")
-    public ResponseEntity<ApiResponse> updateIsInfected(@PathVariable UUID survivorId, @RequestBody CheckInfectedRequest request) {
+    public ResponseEntity<ApiResponse> updateIsInfected(@PathVariable UUID survivorId, @RequestBody CheckInfectedRequestBody request) {
 
         return new ResponseEntity<>(ApiResponse.builder().responseCode(HttpStatus.OK.name()).message(SUCCESS_MESSAGE).data(null).build(), HttpStatus.OK);
     }

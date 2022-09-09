@@ -1,6 +1,7 @@
 package com.ioco.survivalhelper.application.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,10 +9,11 @@ import lombok.NoArgsConstructor;
  * @author Lakith Dharmarathna
  * Date : 09/09/2022
  */
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class UpdateLocationRequest {
-    private double lat;
-    private double lon;
+public class SurvivorInventory {
+    private String item;
+    private String comment;
 }

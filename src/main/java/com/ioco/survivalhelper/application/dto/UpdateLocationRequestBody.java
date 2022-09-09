@@ -3,7 +3,6 @@ package com.ioco.survivalhelper.application.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.NonNull;
 
 /**
  * @author Lakith Dharmarathna
@@ -12,7 +11,7 @@ import org.springframework.lang.NonNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CheckInfectedRequest {
-    @NonNull
-    private boolean isInfected;
+public class UpdateLocationRequestBody {
+    private double lat;
+    private double lon;
 }
