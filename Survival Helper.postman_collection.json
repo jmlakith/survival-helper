@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "d2e87f60-cabc-40d1-9389-cfcc234e6cb7",
+		"name": "Survival Helper",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18834681"
+	},
+	"item": [
+		{
+			"name": "Get Survivors",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/survivors",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"survivors"
+					],
+					"query": [
+						{
+							"key": "infected",
+							"value": "false",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add survivors",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"survivors\": [\r\n        {\r\n            \"id\": \"bef6f44d-3976-4a92-8586-809b7c169174\",\r\n            \"name\": \"Lakith\",\r\n            \"age\": 31,\r\n            \"lat\": 12.3,\r\n            \"lon\": 5.5,\r\n            \"isInfected\": true,\r\n            \"inventory\": [\r\n                {\r\n                    \"item\": \"water\",\r\n                    \"comment\": \"5L available\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/survivors",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"survivors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update location",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"lat\":12.5,\r\n    \"lon\":5.12\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/survivors/bef6f44d-3976-4a92-8586-809b7c169174/location",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"survivors",
+						"bef6f44d-3976-4a92-8586-809b7c169174",
+						"location"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Updated is infected or not",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"isInfected\":true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/survivors/bef6f44d-3976-4a92-8586-809b7c169174/health",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"survivors",
+						"bef6f44d-3976-4a92-8586-809b7c169174",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get survivors report",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/survivors/report",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"survivors",
+						"report"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Robots",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/robots?category=Flying",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"robots"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "Flying"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+}
