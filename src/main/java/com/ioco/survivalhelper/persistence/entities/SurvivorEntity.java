@@ -33,6 +33,6 @@ public class SurvivorEntity {
     private double lon;
     @Column(name = "is_infected")
     private boolean isInfected;
-    @OneToMany(mappedBy = "survivor")
+    @OneToMany(mappedBy = "survivor", cascade = CascadeType.ALL)
     private List<ResourcesEntity> resources;
 }

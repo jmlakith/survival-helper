@@ -1,6 +1,9 @@
 package com.ioco.survivalhelper.application.controllers;
 
-import com.ioco.survivalhelper.application.dto.*;
+import com.ioco.survivalhelper.application.dto.AddSurvivorsRequestBody;
+import com.ioco.survivalhelper.application.dto.ApiResponse;
+import com.ioco.survivalhelper.application.dto.CheckInfectedRequestBody;
+import com.ioco.survivalhelper.application.dto.UpdateLocationRequestBody;
 import com.ioco.survivalhelper.domain.dto.request.Survivor;
 import com.ioco.survivalhelper.domain.dto.request.SurvivorResources;
 import com.ioco.survivalhelper.domain.ports.in.SurvivorHandlerPort;
@@ -10,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
