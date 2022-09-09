@@ -1,6 +1,7 @@
 package com.ioco.survivalhelper.domain.ports.out;
 
 import com.ioco.survivalhelper.domain.dto.Survivor;
+import com.ioco.survivalhelper.domain.dto.response.SurvivorReport;
 
 import java.util.List;
 import java.util.UUID;
@@ -10,6 +11,7 @@ import java.util.UUID;
  * Date : 09/09/2022
  */
 public interface SurvivorPersistencePort {
+
     void saveSurvivors(List<Survivor> records);
 
     List<Survivor> getSurvivors(Boolean infected);
@@ -17,4 +19,6 @@ public interface SurvivorPersistencePort {
     void updateLocation(UUID survivorId, double lat, double lon);
 
     void updateIsInfected(UUID survivorId, boolean isInfected);
+
+    SurvivorReport getReport();
 }

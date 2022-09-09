@@ -1,6 +1,7 @@
 package com.ioco.survivalhelper.domain.services;
 
 import com.ioco.survivalhelper.domain.dto.Survivor;
+import com.ioco.survivalhelper.domain.dto.response.SurvivorReport;
 import com.ioco.survivalhelper.domain.ports.in.SurvivorHandlerPort;
 import com.ioco.survivalhelper.domain.ports.out.SurvivorPersistencePort;
 import lombok.AllArgsConstructor;
@@ -40,6 +41,11 @@ public class SurvivorHandler implements SurvivorHandlerPort {
     @Override
     public void updateIsInfected(UUID survivorId, boolean isInfected) {
         survivorPersistencePort.updateIsInfected(survivorId, isInfected);
+    }
+
+    @Override
+    public SurvivorReport getSurvivorReport() {
+        return survivorPersistencePort.getReport();
     }
 
 }

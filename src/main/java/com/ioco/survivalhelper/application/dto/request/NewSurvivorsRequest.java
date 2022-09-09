@@ -28,7 +28,7 @@ public class NewSurvivorsRequest {
     private double lat;
     @NonNull
     private double lon;
-    private boolean isInfected = false;
+    private Boolean isInfected = false;
     private List<SurvivorInventoryRequest> inventory;
 
 }

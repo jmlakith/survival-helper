@@ -9,6 +9,7 @@ import com.ioco.survivalhelper.application.dto.response.SurvivorsResponseBody;
 import com.ioco.survivalhelper.application.mappers.SurvivorRequestMapper;
 import com.ioco.survivalhelper.domain.dto.Survivor;
 import com.ioco.survivalhelper.domain.dto.SurvivorResources;
+import com.ioco.survivalhelper.domain.dto.response.SurvivorReport;
 import com.ioco.survivalhelper.domain.ports.in.SurvivorHandlerPort;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -61,6 +62,7 @@ public class SurvivorController {
     @PatchMapping("/{survivorId}/location")
     public ResponseEntity<ApiResponse> updateLocation(@PathVariable UUID survivorId, @RequestBody UpdateLocationRequestBody request) {
 
+        log.info("Request received for 'updateLocation' : {}", request);
         survivorHandler.updateLocation(survivorId, request.getLat(), request.getLon());
         return new ResponseEntity<>(ApiResponse.builder()
                 .responseCode(HttpStatus.OK.name())
@@ -71,6 +73,7 @@ public class SurvivorController {
     @PatchMapping("/{survivorId}/health")
     public ResponseEntity<ApiResponse> updateIsInfected(@PathVariable UUID survivorId, @RequestBody CheckInfectedRequestBody request) {
 
+        log.info("Request received for 'updateIsInfected' : {}", request);
         survivorHandler.updateIsInfected(survivorId, request.getIsInfected());
         return new ResponseEntity<>(ApiResponse.builder()
                 .responseCode(HttpStatus.OK.name())
@@ -81,10 +84,13 @@ public class SurvivorController {
     @GetMapping("/report")
     public ResponseEntity<ApiResponse> getSurvivorReport() {
 
+        log.info("Request received for 'getSurvivorReport'");
+        SurvivorReport report = survivorHandler.getSurvivorReport();
+
         return new ResponseEntity<>(ApiResponse.builder()
                 .responseCode(HttpStatus.OK.name())
                 .message(SUCCESS_MESSAGE)
-                .data(null).build(), HttpStatus.OK);
+                .data(report).build(), HttpStatus.OK);
     }
 
 }

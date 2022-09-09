@@ -1,6 +1,7 @@
 package com.ioco.survivalhelper.persistence.adapters;
 
 import com.ioco.survivalhelper.domain.dto.Survivor;
+import com.ioco.survivalhelper.domain.dto.response.SurvivorReport;
 import com.ioco.survivalhelper.domain.ports.out.SurvivorPersistencePort;
 import com.ioco.survivalhelper.persistence.entities.SurvivorEntity;
 import com.ioco.survivalhelper.persistence.exception.SurvivorNotAvailableException;
@@ -45,6 +46,7 @@ public class SurvivorPersistenceAdapter implements SurvivorPersistencePort {
 
     @Override
     public void updateLocation(UUID survivorId, double lat, double lon) {
+
         Optional<SurvivorEntity> survivor = survivorRepository.findById(survivorId.toString());
         if (survivor.isPresent()) {
             SurvivorEntity survivorRecord = survivor.get();
@@ -60,6 +62,7 @@ public class SurvivorPersistenceAdapter implements SurvivorPersistencePort {
 
     @Override
     public void updateIsInfected(UUID survivorId, boolean isInfected) {
+
         Optional<SurvivorEntity> survivor = survivorRepository.findById(survivorId.toString());
         if (survivor.isPresent()) {
             SurvivorEntity survivorRecord = survivor.get();
@@ -70,6 +73,24 @@ public class SurvivorPersistenceAdapter implements SurvivorPersistencePort {
             throw new SurvivorNotAvailableException(SURVIVOR_UNAVAILABILITY_MESSAGE);
         }
 
+    }
+
+    @Override
+    public SurvivorReport getReport() {
+
+        List<Survivor> infectedSurvivors = getSurvivors(true);
+        List<Survivor> nonInfectedSurvivors = getSurvivors(false);
+        double total = (double) infectedSurvivors.size() + nonInfectedSurvivors.size();
+        double infectedSurvivorPercentage = (infectedSurvivors.size() * 100) / total;
+        double nonInfectedSurvivorPercentage = (nonInfectedSurvivors.size() * 100) / total;
+
+        return SurvivorReport.builder()
+                .infectedPercentage(infectedSurvivorPercentage)
+                .nonInfectedPercentage(nonInfectedSurvivorPercentage)
+                .infectedSurvivors(infectedSurvivors)
+                .infectedSurvivors(getSurvivors(true))
+                .nonInfectedSurvivors(getSurvivors(false))
+                .build();
     }
 
 

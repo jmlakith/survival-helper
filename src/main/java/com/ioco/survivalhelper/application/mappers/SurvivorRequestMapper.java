@@ -24,7 +24,7 @@ public class SurvivorRequestMapper {
                 .id(survivor.getId())
                 .name(survivor.getName())
                 .age(survivor.getAge())
-                .isInfected(survivor.isInfected())
+                .isInfected(survivor.getIsInfected())
                 .lat(survivor.getLat())
                 .lon(survivor.getLon())
                 .inventory(survivor.getInventory().stream().map(resource -> SurvivorResources.builder()
