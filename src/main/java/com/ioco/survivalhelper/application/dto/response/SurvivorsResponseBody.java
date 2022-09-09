@@ -1,6 +1,5 @@
 package com.ioco.survivalhelper.application.dto.response;
 
-import com.ioco.survivalhelper.application.dto.request.SurvivorInventoryRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

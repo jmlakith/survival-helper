@@ -1,10 +1,7 @@
 package com.ioco.survivalhelper.persistence.repositories;
 
 import com.ioco.survivalhelper.persistence.entities.ResourcesEntity;
-import com.ioco.survivalhelper.persistence.entities.SurvivorEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.UUID;
 
 /**
  * @author Lakith Dharmarathna

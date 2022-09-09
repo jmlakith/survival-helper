@@ -1,7 +1,6 @@
 package com.ioco.survivalhelper.provider;
 
 import com.ioco.survivalhelper.domain.dto.Robot;
-import com.ioco.survivalhelper.domain.enums.RobotType;
 import com.ioco.survivalhelper.domain.ports.out.RobotListAdapterPort;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
