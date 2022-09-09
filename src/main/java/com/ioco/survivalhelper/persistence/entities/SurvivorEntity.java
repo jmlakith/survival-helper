@@ -6,10 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author Lakith Dharmarathna
@@ -35,4 +33,6 @@ public class SurvivorEntity {
     private double lon;
     @Column(name = "is_infected")
     private boolean isInfected;
+    @OneToMany(mappedBy = "survivor")
+    private List<ResourcesEntity> resources;
 }

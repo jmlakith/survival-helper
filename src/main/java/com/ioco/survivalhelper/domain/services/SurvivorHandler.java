@@ -1,10 +1,8 @@
 package com.ioco.survivalhelper.domain.services;
 
-import com.ioco.survivalhelper.application.dto.AddSurvivorsRequestBody;
 import com.ioco.survivalhelper.domain.dto.SurvivorRecords;
 import com.ioco.survivalhelper.domain.dto.SurvivorResourceRecords;
 import com.ioco.survivalhelper.domain.dto.request.Survivor;
-import com.ioco.survivalhelper.domain.dto.request.SurvivorResources;
 import com.ioco.survivalhelper.domain.ports.in.SurvivorHandlerPort;
 import com.ioco.survivalhelper.domain.ports.out.SurvivorPersistencePort;
 import lombok.AllArgsConstructor;

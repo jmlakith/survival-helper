@@ -4,6 +4,7 @@ import com.ioco.survivalhelper.domain.dto.SurvivorRecords;
 import com.ioco.survivalhelper.domain.dto.SurvivorResourceRecords;
 import com.ioco.survivalhelper.domain.dto.request.Survivor;
 import com.ioco.survivalhelper.domain.ports.out.SurvivorPersistencePort;
+import com.ioco.survivalhelper.persistence.entities.ResourcesEntity;
 import com.ioco.survivalhelper.persistence.entities.SurvivorEntity;
 import com.ioco.survivalhelper.persistence.repositories.SurvivorRepository;
 import lombok.AllArgsConstructor;
@@ -41,6 +42,10 @@ public class SurvivorPersistenceAdapter implements SurvivorPersistencePort {
                 .isInfected(survivor.isInfected())
                 .lat(survivor.getLat())
                 .lon(survivor.getLon())
+                .resources(survivor.getInventory().stream().map(resource -> ResourcesEntity.builder()
+                        .item(resource.getItem())
+                        .comment(resource.getComment())
+                        .build()).collect(Collectors.toList()))
                 .build()).collect(Collectors.toList());
     }
 }
