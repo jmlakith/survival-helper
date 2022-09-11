@@ -20,5 +20,4 @@ public interface SurvivorPersistencePort {
 
     void updateIsInfected(UUID survivorId, boolean isInfected);
 
-    SurvivorReport getReport();
 }

@@ -45,7 +45,21 @@ public class SurvivorHandler implements SurvivorHandlerPort {
 
     @Override
     public SurvivorReport getSurvivorReport() {
-        return survivorPersistencePort.getReport();
+
+        List<Survivor> infectedSurvivors = getSurvivors(true);
+        List<Survivor> nonInfectedSurvivors = getSurvivors(false);
+        double total = (double) infectedSurvivors.size() + nonInfectedSurvivors.size();
+        double infectedSurvivorPercentage = (infectedSurvivors.size() * 100) / total;
+        double nonInfectedSurvivorPercentage = (nonInfectedSurvivors.size() * 100) / total;
+
+        return SurvivorReport.builder()
+                .infectedPercentage(infectedSurvivorPercentage)
+                .nonInfectedPercentage(nonInfectedSurvivorPercentage)
+                .infectedSurvivors(infectedSurvivors)
+                .infectedSurvivors(getSurvivors(true))
+                .nonInfectedSurvivors(getSurvivors(false))
+                .build();
+
     }
 
 }

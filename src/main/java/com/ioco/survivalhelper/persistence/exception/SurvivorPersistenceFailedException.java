@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 
 /**
  * @author Lakith Dharmarathna
- * Date : 09/09/2022
+ * Date : 12/09/2022
  */
-public class SurvivorNotAvailableException extends RuntimeException {
+public class SurvivorPersistenceFailedException extends RuntimeException {
 
     private final HttpStatus httpStatus;
 
@@ -14,11 +14,8 @@ public class SurvivorNotAvailableException extends RuntimeException {
         return httpStatus;
     }
 
-    public SurvivorNotAvailableException(String message, HttpStatus httpStatus) {
+    public SurvivorPersistenceFailedException(String message, HttpStatus httpStatus) {
         super(message);
         this.httpStatus = httpStatus;
     }
-
-
-
 }
