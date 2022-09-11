@@ -37,7 +37,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"survivors\": [\r\n        {\r\n            \"id\": \"bef6f44d-3976-4a92-8586-809b7c169174\",\r\n            \"name\": \"Lakith\",\r\n            \"age\": 31,\r\n            \"lat\": 12.3,\r\n            \"lon\": 5.5,\r\n            \"isInfected\": true,\r\n            \"inventory\": [\r\n                {\r\n                    \"item\": \"water\",\r\n                    \"comment\": \"5L available\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+					"raw": "{\r\n    \"survivors\": [\r\n        {\r\n            \"id\": \"bef6f44d-3976-4a92-8586-809b7c169171\",\r\n            \"name\": \"Damith\",\r\n            \"age\": 33,\r\n            \"lat\": 12.3,\r\n            \"lon\": 5.5,\r\n            \"isInfected\": false,\r\n            \"inventory\": [\r\n                {\r\n                    \"item\": \"Med\",\r\n                    \"comment\": \"available\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -136,18 +136,17 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/robots?category=Flying",
+					"raw": "{{baseUrl}}/robots?category=Land",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "8080",
 					"path": [
 						"robots"
 					],
 					"query": [
 						{
 							"key": "category",
-							"value": "Flying"
+							"value": "Land"
 						}
 					]
 				}

@@ -18,7 +18,6 @@ import reactor.core.publisher.Flux;
 @AllArgsConstructor
 @RestController
 public class RobotsController {
-    private static final String SUCCESS_MESSAGE = "Transaction Successful";
 
     private RobotHandlerPort robotHandlerPort;
 
