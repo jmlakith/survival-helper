@@ -1,4 +1,4 @@
-package com.ioco.survivalhelper.application.controllers;
+package com.ioco.survivalhelper.application.handlers;
 
 import com.ioco.survivalhelper.application.dto.ApiResponse;
 import com.ioco.survivalhelper.persistence.exception.SurvivorNotAvailableException;

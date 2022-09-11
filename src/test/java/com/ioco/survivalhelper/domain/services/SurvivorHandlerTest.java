@@ -32,34 +32,24 @@ class SurvivorHandlerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void testAddSurvivors() {
-        survivorHandler.addSurvivors(Arrays.<Survivor>asList(new Survivor(null, "name", 0, 0d, 0d, true, Arrays.<SurvivorResources>asList(new SurvivorResources("item", "comment")))));
-    }
 
     @Test
-    void testGetSurvivors() {
-        when(survivorPersistencePort.getSurvivors(anyBoolean())).thenReturn(Arrays.<Survivor>asList(new Survivor(null, "name", 0, 0d, 0d, true, Arrays.<SurvivorResources>asList(new SurvivorResources("item", "comment")))));
+    void When_testGetSurvivorReport_Then_returnReport() {
 
-        List<Survivor> result = survivorHandler.getSurvivors(Boolean.TRUE);
-        Assertions.assertEquals(Arrays.<Survivor>asList(new Survivor(null, "name", 0, 0d, 0d, true, Arrays.<SurvivorResources>asList(new SurvivorResources("item", "comment")))), result);
-    }
+        List<Survivor> infectedSurvivors = List.of(new Survivor(null, "name1", 0, 0d, 0d, true,
+                List.of(new SurvivorResources("item", "comment"))));
+        List<Survivor> nonInfectedSurvivors = List.of(new Survivor(null, "name2", 0, 0d, 0d, true,
+                List.of(new SurvivorResources("item", "comment"))));
 
-    @Test
-    void testUpdateLocation() {
-        survivorHandler.updateLocation(null, 0d, 0d);
-    }
-
-    @Test
-    void testUpdateIsInfected() {
-        survivorHandler.updateIsInfected(null, true);
-    }
-
-    @Test
-    void testGetSurvivorReport() {
-        when(survivorPersistencePort.getSurvivors(anyBoolean())).thenReturn(Arrays.<Survivor>asList(new Survivor(null, "name", 0, 0d, 0d, true, Arrays.<SurvivorResources>asList(new SurvivorResources("item", "comment")))));
+        when(survivorPersistencePort.getSurvivors(true)).thenReturn(infectedSurvivors);
+        when(survivorPersistencePort.getSurvivors(false)).thenReturn(nonInfectedSurvivors);
 
         SurvivorReport result = survivorHandler.getSurvivorReport();
-        Assertions.assertEquals(new SurvivorReport(0d, 0d, Arrays.<Survivor>asList(new Survivor(null, "name", 0, 0d, 0d, true, Arrays.<SurvivorResources>asList(new SurvivorResources("item", "comment")))), Arrays.<Survivor>asList(new Survivor(null, "name", 0, 0d, 0d, true, Arrays.<SurvivorResources>asList(new SurvivorResources("item", "comment"))))), result);
+
+        Assertions.assertEquals(new SurvivorReport(50.0d, 50.0d,
+                List.of(new Survivor(null, "name1", 0, 0d, 0d, true,
+                        List.of(new SurvivorResources("item", "comment")))),
+                List.of(new Survivor(null, "name2", 0, 0d, 0d, true,
+                        List.of(new SurvivorResources("item", "comment"))))), result);
     }
 }
