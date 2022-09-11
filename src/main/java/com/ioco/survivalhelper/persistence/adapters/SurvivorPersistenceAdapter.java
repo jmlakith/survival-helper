@@ -1,7 +1,7 @@
 package com.ioco.survivalhelper.persistence.adapters;
 
 import com.ioco.survivalhelper.domain.dto.Survivor;
-import com.ioco.survivalhelper.domain.dto.response.SurvivorReport;
+import com.ioco.survivalhelper.domain.dto.SurvivorReport;
 import com.ioco.survivalhelper.domain.ports.out.SurvivorPersistencePort;
 import com.ioco.survivalhelper.persistence.entities.SurvivorEntity;
 import com.ioco.survivalhelper.persistence.exception.SurvivorNotAvailableException;

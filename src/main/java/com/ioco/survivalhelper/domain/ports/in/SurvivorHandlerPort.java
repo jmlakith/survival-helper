@@ -1,7 +1,7 @@
 package com.ioco.survivalhelper.domain.ports.in;
 
 import com.ioco.survivalhelper.domain.dto.Survivor;
-import com.ioco.survivalhelper.domain.dto.response.SurvivorReport;
+import com.ioco.survivalhelper.domain.dto.SurvivorReport;
 
 import java.util.List;
 import java.util.UUID;

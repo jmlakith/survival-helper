@@ -1,7 +1,7 @@
 package com.ioco.survivalhelper.domain.services;
 
 import com.ioco.survivalhelper.domain.dto.Survivor;
-import com.ioco.survivalhelper.domain.dto.response.SurvivorReport;
+import com.ioco.survivalhelper.domain.dto.SurvivorReport;
 import com.ioco.survivalhelper.domain.ports.in.SurvivorHandlerPort;
 import com.ioco.survivalhelper.domain.ports.out.SurvivorPersistencePort;
 import lombok.AllArgsConstructor;

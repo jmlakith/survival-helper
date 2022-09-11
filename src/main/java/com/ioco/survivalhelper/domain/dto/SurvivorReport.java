@@ -1,6 +1,5 @@
-package com.ioco.survivalhelper.domain.dto.response;
+package com.ioco.survivalhelper.domain.dto;
 
-import com.ioco.survivalhelper.domain.dto.Survivor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

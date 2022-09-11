@@ -23,15 +23,15 @@ public class SurvivorMapper {
         return survivors.stream().map(survivor -> {
 
             SurvivorEntity entity = SurvivorEntity.builder().id(survivor.getId().toString())
-                .name(survivor.getName())
-                .age(survivor.getAge())
-                .isInfected(survivor.isInfected())
-                .lat(survivor.getLat())
-                .lon(survivor.getLon()).build();
+                    .name(survivor.getName())
+                    .age(survivor.getAge())
+                    .isInfected(survivor.isInfected())
+                    .lat(survivor.getLat())
+                    .lon(survivor.getLon()).build();
             List<ResourcesEntity> resources = survivor.getInventory().stream().map(resource -> ResourcesEntity.builder()
-                        .item(resource.getItem())
-                        .comment(resource.getComment())
-                        .survivor(entity).build()).collect(Collectors.toList());
+                    .item(resource.getItem())
+                    .comment(resource.getComment())
+                    .survivor(entity).build()).collect(Collectors.toList());
             entity.setResources(resources);
             return entity;
         }).collect(Collectors.toList());

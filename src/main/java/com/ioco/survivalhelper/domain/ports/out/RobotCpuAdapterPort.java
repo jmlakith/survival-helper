@@ -7,7 +7,7 @@ import reactor.core.publisher.Flux;
  * @author Lakith Dharmarathna
  * Date : 10/09/2022
  */
-public interface RobotListAdapterPort{
+public interface RobotCpuAdapterPort {
 
     Flux<Robot> getRobotList();
 }

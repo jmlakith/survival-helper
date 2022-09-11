@@ -1,15 +1,12 @@
 package com.ioco.survivalhelper.application.controllers;
 
-import com.ioco.survivalhelper.application.dto.request.AddSurvivorsRequestBody;
 import com.ioco.survivalhelper.application.dto.ApiResponse;
+import com.ioco.survivalhelper.application.dto.request.AddSurvivorsRequestBody;
 import com.ioco.survivalhelper.application.dto.request.CheckInfectedRequestBody;
 import com.ioco.survivalhelper.application.dto.request.UpdateLocationRequestBody;
-import com.ioco.survivalhelper.application.dto.response.SurvivorInventoryResponse;
-import com.ioco.survivalhelper.application.dto.response.SurvivorsResponseBody;
 import com.ioco.survivalhelper.application.mappers.SurvivorRequestMapper;
 import com.ioco.survivalhelper.domain.dto.Survivor;
-import com.ioco.survivalhelper.domain.dto.SurvivorResources;
-import com.ioco.survivalhelper.domain.dto.response.SurvivorReport;
+import com.ioco.survivalhelper.domain.dto.SurvivorReport;
 import com.ioco.survivalhelper.domain.ports.in.SurvivorHandlerPort;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * @author Lakith Dharmarathna
@@ -86,6 +82,7 @@ public class SurvivorController {
 
         log.info("Request received for 'getSurvivorReport'");
         SurvivorReport report = survivorHandler.getSurvivorReport();
+        log.info("Response 'getSurvivorReport'");
 
         return new ResponseEntity<>(ApiResponse.builder()
                 .responseCode(HttpStatus.OK.name())

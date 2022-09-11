@@ -8,7 +8,6 @@ public class SurvivorNotAvailableException extends RuntimeException {
 
     public SurvivorNotAvailableException(String message) {
         super(message);
-
     }
 
 }
