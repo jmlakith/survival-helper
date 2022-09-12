@@ -24,9 +24,11 @@ public class RobotCpuAdapter implements RobotCpuAdapterPort {
 
     private final String getRobotListUri;
     private final WebClient robotWebClient;
+
+    private static final Duration TIMEOUT_DURATION = Duration.ofMillis(10_100);
     private static final int MAX_ATTEMPTS = 2;
     private static final Duration BACKOFF_DURATION = Duration.ofSeconds(2);
-    private static final Duration TIMEOUT_DURATION = Duration.ofMillis(10_100);
+    private static final Integer BACKPRESSURE = 10;
 
 
     @Override
@@ -37,6 +39,7 @@ public class RobotCpuAdapter implements RobotCpuAdapterPort {
                 .retrieve()
                 .bodyToFlux(Robot.class)
                 .timeout(TIMEOUT_DURATION)
+                .limitRate(BACKPRESSURE)
                 .retryWhen(
                         Retry.backoff(MAX_ATTEMPTS, BACKOFF_DURATION)
                 );

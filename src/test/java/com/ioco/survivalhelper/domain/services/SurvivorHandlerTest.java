@@ -10,12 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.slf4j.Logger;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Lakith Dharmarathna
@@ -34,7 +33,7 @@ class SurvivorHandlerTest {
 
 
     @Test
-    void When_testGetSurvivorReport_Then_returnReport() {
+    void Test_GetSurvivorReport_When_bothInfectedAndNonInfectedSurvivorsExist_Then_returnReportWithValidValues() {
 
         List<Survivor> infectedSurvivors = List.of(new Survivor(null, "name1", 0, 0d, 0d, true,
                 List.of(new SurvivorResources("item", "comment"))));
@@ -49,6 +48,24 @@ class SurvivorHandlerTest {
         Assertions.assertEquals(new SurvivorReport(50.0d, 50.0d,
                 List.of(new Survivor(null, "name1", 0, 0d, 0d, true,
                         List.of(new SurvivorResources("item", "comment")))),
+                List.of(new Survivor(null, "name2", 0, 0d, 0d, true,
+                        List.of(new SurvivorResources("item", "comment"))))), result);
+    }
+
+    @Test
+    void Test_GetSurvivorReport_When_infectedSurvivorsNotExist_Then_returnReportWithInfectedPercentageZero() {
+
+        List<Survivor> infectedSurvivors = new ArrayList<>();
+        List<Survivor> nonInfectedSurvivors = List.of(new Survivor(null, "name2", 0, 0d, 0d, true,
+                List.of(new SurvivorResources("item", "comment"))));
+
+        when(survivorPersistencePort.getSurvivors(true)).thenReturn(infectedSurvivors);
+        when(survivorPersistencePort.getSurvivors(false)).thenReturn(nonInfectedSurvivors);
+
+        SurvivorReport result = survivorHandler.getSurvivorReport();
+
+        Assertions.assertEquals(new SurvivorReport(0.0d, 100.0d,
+                new ArrayList<>(),
                 List.of(new Survivor(null, "name2", 0, 0d, 0d, true,
                         List.of(new SurvivorResources("item", "comment"))))), result);
     }

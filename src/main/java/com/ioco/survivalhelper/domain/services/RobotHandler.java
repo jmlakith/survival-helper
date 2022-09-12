@@ -24,7 +24,9 @@ public class RobotHandler implements RobotHandlerPort {
     public Flux<Robot> getRobots(RobotType type) {
 
         //Group by category for better readability
-        Flux<Robot> robots = robotCpuAdapterPort.getRobotList().sort(Comparator.comparing(Robot::getCategory));
+        Flux<Robot> robots = robotCpuAdapterPort.getRobotList().defaultIfEmpty(new Robot())
+                .sort(Comparator.comparing(Robot::getCategory));
+
         if (type != null) {
             return robots.filter(val -> val.getCategory().equals(type));
         } else {
