@@ -21,6 +21,11 @@ public class RobotsController {
 
     private RobotHandlerPort robotHandlerPort;
 
+    /**
+     * This method will fetch robot details from the RobotCPU, group by the robot category
+     * @param category : filter category type
+     * @return
+     */
     @GetMapping("/robots")
     public Flux<Robot> getRobotList(@RequestParam(required = false) RobotType category) {
 

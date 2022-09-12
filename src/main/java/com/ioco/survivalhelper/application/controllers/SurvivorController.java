@@ -31,6 +31,11 @@ public class SurvivorController {
 
     private SurvivorHandlerPort survivorHandler;
 
+    /**
+     * This method can be used to save list of survivors to the database
+     * @param request
+     * @return
+     */
     @PostMapping()
     public ResponseEntity<ApiResponse> addSurvivors(@RequestBody AddSurvivorsRequestBody request) {
 
@@ -44,6 +49,11 @@ public class SurvivorController {
                 .data(null).build(), HttpStatus.OK);
     }
 
+    /**
+     * This method will be used to fetch Survivors from the database
+     * @param infected infected or not filter
+     * @return
+     */
     @GetMapping()
     public ResponseEntity<ApiResponse> getSurvivors(@RequestParam(required = false) Boolean infected) {
 
@@ -55,6 +65,12 @@ public class SurvivorController {
                 .build(), HttpStatus.OK);
     }
 
+    /**
+     * This method will be used to update the location of a survivor
+     * @param survivorId Unique id of the survivor
+     * @param request
+     * @return
+     */
     @PatchMapping("/{survivorId}/location")
     public ResponseEntity<ApiResponse> updateLocation(@PathVariable UUID survivorId, @RequestBody UpdateLocationRequestBody request) {
 
@@ -66,6 +82,12 @@ public class SurvivorController {
                 .data(null).build(), HttpStatus.OK);
     }
 
+    /**
+     * This method will be used to update whether the survivor is infected with the virus
+     * @param survivorId Unique id of the survivor
+     * @param request
+     * @return
+     */
     @PatchMapping("/{survivorId}/health")
     public ResponseEntity<ApiResponse> updateIsInfected(@PathVariable UUID survivorId, @RequestBody CheckInfectedRequestBody request) {
 
@@ -77,6 +99,10 @@ public class SurvivorController {
                 .data(null).build(), HttpStatus.OK);
     }
 
+    /**
+     * This method will generate a report consist of all infected vs non-infected statistics
+     * @return
+     */
     @GetMapping("/report")
     public ResponseEntity<ApiResponse> getSurvivorReport() {
 
