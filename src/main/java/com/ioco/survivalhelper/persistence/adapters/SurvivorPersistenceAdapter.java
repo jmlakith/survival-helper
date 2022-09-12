@@ -53,21 +53,22 @@ public class SurvivorPersistenceAdapter implements SurvivorPersistencePort {
     @Override
     public void updateLocation(UUID survivorId, double lat, double lon) {
 
-        try {
-            Optional<SurvivorEntity> survivor = survivorRepository.findById(survivorId.toString());
-            if (survivor.isPresent()) {
-                SurvivorEntity survivorRecord = survivor.get();
-                survivorRecord.setLon(lat);
-                survivorRecord.setLon(lon);
+        Optional<SurvivorEntity> survivor = survivorRepository.findById(survivorId.toString());
+        if (survivor.isPresent()) {
+            SurvivorEntity survivorRecord = survivor.get();
+            survivorRecord.setLon(lat);
+            survivorRecord.setLon(lon);
+
+            try {
                 survivorRepository.save(survivorRecord);
-            } else {
-                log.error(SURVIVOR_UNAVAILABILITY_MESSAGE);
-                throw new SurvivorNotAvailableException(SURVIVOR_UNAVAILABILITY_MESSAGE, HttpStatus.PRECONDITION_FAILED);
+            } catch (Exception ex) {
+                log.error("Encountered an error while updating the location", ex);
+                throw new SurvivorPersistenceFailedException("Failed to update the survivor location",
+                        HttpStatus.INTERNAL_SERVER_ERROR);
             }
-        } catch (Exception ex) {
-            log.error("Encountered an error while updating the location", ex);
-            throw new SurvivorPersistenceFailedException("Failed to update the survivor location",
-                    HttpStatus.INTERNAL_SERVER_ERROR);
+        } else {
+            log.error(SURVIVOR_UNAVAILABILITY_MESSAGE);
+            throw new SurvivorNotAvailableException(SURVIVOR_UNAVAILABILITY_MESSAGE, HttpStatus.PRECONDITION_FAILED);
         }
 
     }
@@ -75,22 +76,22 @@ public class SurvivorPersistenceAdapter implements SurvivorPersistencePort {
     @Override
     public void updateIsInfected(UUID survivorId, boolean isInfected) {
 
-        try {
-            Optional<SurvivorEntity> survivor = survivorRepository.findById(survivorId.toString());
-            if (survivor.isPresent()) {
-                SurvivorEntity survivorRecord = survivor.get();
-                survivorRecord.setInfected(isInfected);
-                survivorRepository.save(survivorRecord);
-            } else {
-                log.error(SURVIVOR_UNAVAILABILITY_MESSAGE);
-                throw new SurvivorNotAvailableException(SURVIVOR_UNAVAILABILITY_MESSAGE, HttpStatus.PRECONDITION_FAILED);
-            }
-        } catch (Exception ex) {
-            log.error("Encountered an error while updating the is infected", ex);
-            throw new SurvivorPersistenceFailedException("Failed to update the infected status",
-                    HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        Optional<SurvivorEntity> survivor = survivorRepository.findById(survivorId.toString());
+        if (survivor.isPresent()) {
+            SurvivorEntity survivorRecord = survivor.get();
+            survivorRecord.setInfected(isInfected);
 
+            try {
+                survivorRepository.save(survivorRecord);
+            } catch (Exception ex) {
+                log.error("Encountered an error while updating the is infected", ex);
+                throw new SurvivorPersistenceFailedException("Failed to update the infected status",
+                        HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            log.error(SURVIVOR_UNAVAILABILITY_MESSAGE);
+            throw new SurvivorNotAvailableException(SURVIVOR_UNAVAILABILITY_MESSAGE, HttpStatus.PRECONDITION_FAILED);
+        }
     }
 
 }

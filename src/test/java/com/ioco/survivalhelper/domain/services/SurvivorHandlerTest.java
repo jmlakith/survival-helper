@@ -32,6 +32,9 @@ class SurvivorHandlerTest {
     }
 
 
+    //Please note that I have written few sample unit tests since this is a timed test,
+    // it might not cover every method, Thank you
+
     @Test
     void Test_GetSurvivorReport_When_bothInfectedAndNonInfectedSurvivorsExist_Then_returnReportWithValidValues() {
 
